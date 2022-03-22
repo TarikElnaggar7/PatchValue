@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable, combineLatest } from 'rxjs';
 const response = {
   name: 22,
   password: 80,
@@ -12,6 +13,8 @@ const response = {
   styleUrls: ['./parent.component.css'],
 })
 export class ParentComponent implements OnInit {
+  public player$: Observable<any>;
+
   myForm: FormGroup;
   tarik: any;
 
@@ -19,6 +22,7 @@ export class ParentComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.player$ = combineLatest([response]);
   }
 
   initForm() {
@@ -30,5 +34,6 @@ export class ParentComponent implements OnInit {
 
   getData() {
     this.myForm.patchValue(response);
+    this.tarik = response.childInput;
   }
 }

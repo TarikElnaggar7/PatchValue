@@ -1,4 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,20 +14,30 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ChildComponent implements OnInit {
   myForm: FormGroup;
-  @Input() tarik: any;
+  private _selected: any;
+
+  @Input()
+  set player(value: any) {
+    this._selected = value;
+  }
+
+  get player(): any {
+    return this._selected;
+  }
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.myForm.valueChanges.subscribe((x) => {
-      this.myForm.controls['childInput'].setValue(this.tarik);
-    });
   }
 
   initForm() {
     this.myForm = this.formBuilder.group({
-      childInput: ['x'],
+      childInput: [null],
     });
+  }
+
+  g() {
+    this.myForm.controls['childInput'].setValue(this.tarikInput);
   }
 }
